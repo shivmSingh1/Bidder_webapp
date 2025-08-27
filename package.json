@@ -6,11 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:stage": "env-cmd -f .env.stage vite build",
+    "build:prod": "env-cmd -f .env.prod vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "bootstrap": "^5.3.7",
+    "env-cmd": "^11.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "reactstrap": "^9.2.3"
