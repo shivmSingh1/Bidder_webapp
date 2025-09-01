@@ -4,6 +4,7 @@ import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import { testFetchData } from './redux/slices/testSlice';
+import Signup from './views/auth/Signup';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,8 +21,7 @@ function App() {
   }, [data, loading, error])
   return (
     <>
-      <p>hello world</p>
-      <Button>clcik me</Button>
+      <Signup/>
     </>
   )
 }
