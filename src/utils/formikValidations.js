@@ -16,3 +16,13 @@ export const signupValidationSchema = Yup.object({
     password:Yup.string().required("password is required"),
     confirmPassword:Yup.string().required("confirm password is required"),
 })
+
+export const signInInitialValues ={
+    email:"",
+    password:"",
+}
+
+export const signInValidationSchema = Yup.object({
+    email:Yup.string().email("provide valid email").required("email is required"),
+    password:Yup.string().required("password is required"),
+})

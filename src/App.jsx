@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import { testFetchData } from './redux/slices/testSlice';
 import Signup from './views/auth/Signup';
+import SignIn from './views/auth/SignIn';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +23,10 @@ function App() {
   }, [data, loading, error])
   return (
     <>
-      <Signup/>
+      <Routes>
+         <Route path="/auth/signin" element={<SignIn/>} ></Route>
+         <Route path="/auth/signup" element={<Signup/>} ></Route>
+      </Routes>
     </>
   )
 }
