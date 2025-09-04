@@ -14,7 +14,12 @@ function Signup() {
   const dispatch = useDispatch()
 
   const handleSignupSubmit = (values) => {
-    dispatch(registerUser({...values}))
+    const payload = {
+      firstName:values.firstName,
+      lastName:values.lastName,
+      password,
+    }
+    dispatch(registerUser())
   };
 
   const signupFormik = useFormik({
