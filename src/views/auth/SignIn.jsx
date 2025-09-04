@@ -65,7 +65,7 @@ function SignIn() {
                     </Form>
                 </div>
                 <div>
-                    <p>Forgot password</p>
+                    <p>dont remember your password ? <Link to="/auth/forgot-password" >Forgot password</Link> </p>
                     <p>dont have an account ? <Link to="/auth/signup" >Sign up</Link> </p>
                 </div>
             </div>

@@ -26,3 +26,12 @@ export const signInValidationSchema = Yup.object({
     email:Yup.string().email("provide valid email").required("email is required"),
     password:Yup.string().required("password is required"),
 })
+
+export const forgotPasswordInitialValue ={
+    email:"",
+}
+
+export const forgotPasswordValidationSchema = Yup.object({
+    email:Yup.string().email("provide valid email").required("email is required"),
+})
+
