@@ -22,6 +22,22 @@ export const registerUser = createAsyncThunk(
     }
 )
 
+export const signInUser = createAsyncThunk(
+    "auth/signInUser",
+    async(payload,thunkApi)=>{
+        try {
+            const response = await POST('/auth/login',payload)
+            if(response){
+                return response.data
+            }else{
+                return thunkApi.rejectWithValue(response.error)
+            }
+        } catch (error) {
+              return thunkApi.rejectWithValue(error.message)
+        }
+    }
+)
+
 export const authSlice= createSlice({
     name:"auth",
     initialState:registerInitialState,
