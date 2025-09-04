@@ -10,18 +10,18 @@ import { Route, Routes } from 'react-router-dom';
 import ForgotPassword from './views/auth/ForgotPassword';
 
 function App() {
-  const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.test)
+  // const dispatch = useDispatch();
+  // const { data, loading, error } = useSelector((state) => state.test)
 
-  useEffect(() => {
-    dispatch(testFetchData())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(testFetchData())
+  // }, [])
 
-  useEffect(() => {
-    console.log("loading", loading)
-    console.log("data", data)
-    console.log("error", error)
-  }, [data, loading, error])
+  // useEffect(() => {
+  //   console.log("loading", loading)
+  //   console.log("data", data)
+  //   console.log("error", error)
+  // }, [data, loading, error])
   return (
     <>
       <Routes>

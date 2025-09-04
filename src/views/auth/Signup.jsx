@@ -6,11 +6,15 @@ import * as Yup from "yup";
 import { signupInitialValues, signupValidationSchema } from "../../utils/formikValidations";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../redux/slices/authSlice";
 
 function Signup() {
   const [isHide, setIsHide] = useState(false)
+  const dispatch = useDispatch()
+
   const handleSignupSubmit = (values) => {
-    console.log("formik", values);
+    dispatch(registerUser({...values}))
   };
 
   const signupFormik = useFormik({
