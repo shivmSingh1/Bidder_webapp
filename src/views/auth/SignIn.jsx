@@ -4,15 +4,29 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { signInInitialValues, signInValidationSchema } from "../../utils/formikValidations";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signInUser } from "../../redux/slices/authSlice";
+import { toast } from "react-toastify";
 
 function SignIn() {
     const [isHide, setIsHide] = useState(false)
-    const handleSignInSubmit = (values) => {
-        console.log("formik", values);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleSignInSubmit = async(values) => {
+        console.log("print")
+       try {
+        await dispatch(signInUser(values)).unwrap()
+        toast.success("you are logged in")
+        navigate("/")
+       } catch (error) {
+        console.log(error)
+        toast.error(error);
+       }
     };
 
-    const signupFormik = useFormik({
+    const signInFormik = useFormik({
         initialValues: signInInitialValues,
         validationSchema: signInValidationSchema,
         onSubmit: handleSignInSubmit,
@@ -22,19 +36,19 @@ function SignIn() {
         <div className="container">
             <div className="d-flex align-items-center justify-content-between" >
                 <div>
-                    <Form className="mt-5" onSubmit={signupFormik.handleSubmit}>
+                    <Form className="mt-5" onSubmit={signInFormik.handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 type="email"
                                 name="email"
                                 placeholder="Enter Lastname"
-                                value={signupFormik.values.email}
-                                onChange={signupFormik.handleChange}
-                                onBlur={signupFormik.handleBlur}
+                                value={signInFormik.values.email}
+                                onChange={signInFormik.handleChange}
+                                onBlur={signInFormik.handleBlur}
                             />
                         </Form.Group>
-                        {signupFormik.touched.email && signupFormik.errors.email && <p style={{ color: "red" }} >{signupFormik.errors.email}</p>}
+                        {signInFormik.touched.email && signInFormik.errors.email && <p style={{ color: "red" }} >{signInFormik.errors.email}</p>}
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
@@ -43,9 +57,9 @@ function SignIn() {
                                     type={isHide ? "password" : "text"}
                                     name="password"
                                     placeholder="Password"
-                                    value={signupFormik.values.password}
-                                    onChange={signupFormik.handleChange}
-                                    onBlur={signupFormik.handleBlur}
+                                    value={signInFormik.values.password}
+                                    onChange={signInFormik.handleChange}
+                                    onBlur={signInFormik.handleBlur}
                                 />
                                 <FaRegEyeSlash
                                     className={`position-absolute end-0 top-50 translate-middle-y me-2 ${isHide ? "d-block" : "d-none"}`}
@@ -58,7 +72,7 @@ function SignIn() {
                                 />
                             </div>
                         </Form.Group>
-                        {signupFormik.touched.password && signupFormik.errors.password && <p style={{ color: "red" }} >{signupFormik.errors.password}</p>}
+                        {signInFormik.touched.password && signInFormik.errors.password && <p style={{ color: "red" }} >{signInFormik.errors.password}</p>}
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>

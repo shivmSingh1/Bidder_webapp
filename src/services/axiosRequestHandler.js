@@ -2,7 +2,7 @@ import Axios from "../config/axios"
 
 
 export const GET = async (path,query="")=>{
-    const result = {
+    let result = {
         response: null,
         status : 500
     }
@@ -21,7 +21,7 @@ export const GET = async (path,query="")=>{
 }
 
 export const POST = async (path,payload={},headers={})=>{
-    const result = {
+    let result = {
         response: null,
         status : 500
     }
@@ -41,7 +41,7 @@ export const POST = async (path,payload={},headers={})=>{
 
 
 export const PUT = async (path,payload={})=>{
-    const result = {
+    let result = {
         response: null,
         status : 500
     }
@@ -61,7 +61,7 @@ export const PUT = async (path,payload={})=>{
 
 
 export const DELETE = async (path,payload={})=>{
-    const result = {
+    let result = {
         response: null,
         status : 500
     }
