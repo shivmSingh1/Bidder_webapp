@@ -3,10 +3,19 @@ import { Link } from 'react-router-dom'
 import { forgotPasswordInitialValue, forgotPasswordValidationSchema } from '../../utils/formikValidations';
 import {  useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { forgotPassword } from '../../redux/slices/authSlice';
 
 function ForgotPassword() {
-      const handleForgotPasswordSubmit = (values) => {
-        console.log("formik", values);
+    const dispatch = useDispatch()
+      const handleForgotPasswordSubmit = async(values) => {
+        try {
+            await dispatch(forgotPassword(values)).unwrap()
+            toast.success(response?.data?.message||"mail sent")
+        } catch (error) {
+            toast.error(error)
+        }
       };
     
       const ForgotPasswordFormik = useFormik({

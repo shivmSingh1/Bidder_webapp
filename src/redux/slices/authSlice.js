@@ -45,6 +45,28 @@ export const signInUser = createAsyncThunk(
     }
 )
 
+export const forgotPassword = createAsyncThunk(
+    'auth/forgotPassword',
+    async(payload,thunkApi)=>{
+        try {
+            const response = await POST("/auth/forgot-password",payload)
+            if(response){
+                console.log("response",response?.data)
+                return response.data
+            }else{
+                return thunkApi.rejectWithValue(response.error)
+            }
+        } catch (error) {
+              const errorMessage =
+        error?.response?.data?.error || // backend error field
+        error?.response?.data?.message || // backend message field
+        error?.message || // fallback
+        "Something went wrong";
+          return thunkApi.rejectWithValue(errorMessage);
+        }
+    }
+)
+
 export const authSlice= createSlice({
     name:"auth",
     initialState:registerInitialState,
@@ -65,6 +87,16 @@ export const authSlice= createSlice({
             state.isLoading = false
             state.isLogin = true
        }).addCase(signInUser.rejected,(state,action)=>{
+            state.isLoading = false;
+            state.isLogin = false;
+            state.error = action.payload
+       })
+       .addCase(forgotPassword.pending,(state)=>{
+            state.isLoading = true
+       }).addCase(forgotPassword.fulfilled,(state)=>{
+            state.isLoading = false
+            state.isLogin = true
+       }).addCase(forgotPassword.rejected,(state,action)=>{
             state.isLoading = false;
             state.isLogin = false;
             state.error = action.payload
