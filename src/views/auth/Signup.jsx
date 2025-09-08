@@ -17,9 +17,11 @@ function Signup() {
     const payload = {
       firstName:values.firstName,
       lastName:values.lastName,
-      password,
+      password:values.password,
+      confirmPassword:values.confirmPassword,
+      email:values.email
     }
-    dispatch(registerUser())
+    dispatch(registerUser(payload))
   };
 
   const signupFormik = useFormik({

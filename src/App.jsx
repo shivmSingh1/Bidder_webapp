@@ -8,6 +8,7 @@ import Signup from './views/auth/Signup';
 import SignIn from './views/auth/SignIn';
 import { Route, Routes } from 'react-router-dom';
 import ForgotPassword from './views/auth/ForgotPassword';
+import VerifyAccount from './views/auth/VerifyAccount';
 
 function App() {
   // const dispatch = useDispatch();
@@ -27,7 +28,8 @@ function App() {
       <Routes>
          <Route path="/auth/signin" element={<SignIn/>} ></Route>
          <Route path="/auth/signup" element={<Signup/>} ></Route>
-          <Route path="/auth/forgot-password" element={<ForgotPassword/>} ></Route>
+         <Route path="/auth/forgot-password" element={<ForgotPassword/>} ></Route>
+         <Route path="/auth/verify-account/:token" element={<VerifyAccount/>} ></Route>
       </Routes>
     </>
   )

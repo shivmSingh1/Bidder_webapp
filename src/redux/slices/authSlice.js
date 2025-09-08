@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { POST } from "../../services/axiosRequestHandler"
+import { GET, POST } from "../../services/axiosRequestHandler"
 
 const registerInitialState={
     isLogin:false,
     isLoading:false,
-    error:null
+    error:null,
+    isAccountVerified:false
 }
 
 export const registerUser = createAsyncThunk(
@@ -67,6 +68,28 @@ export const forgotPassword = createAsyncThunk(
     }
 )
 
+export const verifyAccount = createAsyncThunk(
+    'auth/verifyAccount',
+    async(param,thunkApi)=>{
+        try {
+            const response = await GET("/auth/verify-account/",param)
+            if(response){
+                console.log("response",response?.data)
+                return response.data
+            }else{
+                return thunkApi.rejectWithValue(response.error)
+            }
+        } catch (error) {
+              const errorMessage =
+        error?.response?.data?.error || // backend error field
+        error?.response?.data?.message || // backend message field
+        error?.message || // fallback
+        "Something went wrong";
+          return thunkApi.rejectWithValue(errorMessage);
+        }
+    }
+)
+
 export const authSlice= createSlice({
     name:"auth",
     initialState:registerInitialState,
@@ -99,6 +122,15 @@ export const authSlice= createSlice({
        }).addCase(forgotPassword.rejected,(state,action)=>{
             state.isLoading = false;
             state.isLogin = false;
+            state.error = action.payload
+       })
+       .addCase(verifyAccount.pending,(state)=>{
+            state.isLoading = true
+       }).addCase(verifyAccount.fulfilled,(state)=>{
+            state.isLoading = false
+            state.isAccountVerified = true
+       }).addCase(verifyAccount.rejected,(state,action)=>{
+            state.isLoading = false;
             state.error = action.payload
        })
     }
