@@ -9,6 +9,7 @@ import SignIn from './views/auth/SignIn';
 import { Route, Routes } from 'react-router-dom';
 import ForgotPassword from './views/auth/ForgotPassword';
 import VerifyAccount from './views/auth/VerifyAccount';
+import ResetPassword from './views/auth/ResetPassword';
 
 function App() {
   // const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
          <Route path="/auth/signup" element={<Signup/>} ></Route>
          <Route path="/auth/forgot-password" element={<ForgotPassword/>} ></Route>
          <Route path="/auth/verify-account/:token" element={<VerifyAccount/>} ></Route>
+         <Route path="/auth/reset-password/:token" element={<ResetPassword/>} ></Route>
       </Routes>
     </>
   )

@@ -90,6 +90,28 @@ export const verifyAccount = createAsyncThunk(
     }
 )
 
+export const updatePassword = createAsyncThunk(
+    'auth/updatePassword',
+    async(param,thunkApi)=>{
+        try {
+            const response = await GET("/auth/update-password/",param)
+            if(response){
+                console.log("response",response?.data)
+                return response.data
+            }else{
+                return thunkApi.rejectWithValue(response.error)
+            }
+        } catch (error) {
+              const errorMessage =
+        error?.response?.data?.error || // backend error field
+        error?.response?.data?.message || // backend message field
+        error?.message || // fallback
+        "Something went wrong";
+          return thunkApi.rejectWithValue(errorMessage);
+        }
+    }
+)
+
 export const authSlice= createSlice({
     name:"auth",
     initialState:registerInitialState,
