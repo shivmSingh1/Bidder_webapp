@@ -5,17 +5,22 @@ import { updatePassword, verifyAccount } from '../../redux/slices/authSlice';
 import { useFormik } from 'formik';
 import { resetPasswordInitialValues, resetPasswordValidationSchema } from '../../utils/formikValidations';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 function ResetPassword() {
      const [isHide, setIsHide] = useState(false)
   const dispatch = useDispatch()
+  const {token} = useParams()
 
   const handleResetSubmit = (values) => {
     const payload = {
-      password:values.password,
-      confirmPassword:values.confirmPassword,
+      token,
+      body:{
+         password:values.password,
+        confirmPassword:values.confirmPassword,
+      }
     }
-    dispatch(updatePassword(payload))
+    dispatch(updatePassword(payload,token))
   };
 
   const resetFormik = useFormik ({

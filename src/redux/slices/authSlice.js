@@ -92,9 +92,11 @@ export const verifyAccount = createAsyncThunk(
 
 export const updatePassword = createAsyncThunk(
     'auth/updatePassword',
-    async(param,thunkApi)=>{
+    async(payload,thunkApi)=>{
         try {
-            const response = await GET("/auth/update-password/",param)
+            const {token} = payload
+            const {body} = payload
+            const response = await POST(`/auth/update-password/${token}`,body)
             if(response){
                 console.log("response",response?.data)
                 return response.data
