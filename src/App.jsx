@@ -27,13 +27,14 @@ function App() {
   // }, [data, loading, error])
   return (
     <>
+      <Header />
       <Routes>
-         <Route path='/' element={<Header/>} ></Route>
-         <Route path="/auth/signin" element={<SignIn/>} ></Route>
-         <Route path="/auth/signup" element={<Signup/>} ></Route>
-         <Route path="/auth/forgot-password" element={<ForgotPassword/>} ></Route>
-         <Route path="/auth/verify-account/:token" element={<VerifyAccount/>} ></Route>
-         <Route path="/auth/reset-password/:token" element={<ResetPassword/>} ></Route>
+        {/* <Route path='/' element={<Header/>} ></Route> */}
+        <Route path="/auth/signin" element={<SignIn />} ></Route>
+        <Route path="/auth/signup" element={<Signup />} ></Route>
+        <Route path="/auth/forgot-password" element={<ForgotPassword />} ></Route>
+        <Route path="/auth/verify-account/:token" element={<VerifyAccount />} ></Route>
+        <Route path="/auth/reset-password/:token" element={<ResetPassword />} ></Route>
       </Routes>
     </>
   )

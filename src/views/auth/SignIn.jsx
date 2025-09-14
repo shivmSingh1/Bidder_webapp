@@ -1,29 +1,35 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { signInInitialValues, signInValidationSchema } from "../../utils/formikValidations";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../redux/slices/authSlice";
 import { toast } from "react-toastify";
 
 function SignIn() {
     const [isHide, setIsHide] = useState(false)
+    const { isLogin } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    const handleSignInSubmit = async(values) => {
+    useEffect(() => {
+        console.log("isLogin", isLogin)
+    }, [isLogin])
+    const handleSignInSubmit = async (values) => {
         console.log("print")
-       try {
-        await dispatch(signInUser(values)).unwrap()
-        toast.success("you are logged in")
-        navigate("/")
-       } catch (error) {
-        console.log(error)
-        toast.error(error);
-       }
+        try {
+            const response = await dispatch(signInUser(values)).unwrap()
+            if (response.status === 200) {
+                localStorage.setItem("isLogin", isLogin)
+            }
+            toast.success("you are logged in")
+            navigate("/")
+        } catch (error) {
+            console.log(error)
+            toast.error(error);
+        }
     };
 
     const signInFormik = useFormik({
