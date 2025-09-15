@@ -12,6 +12,7 @@ import VerifyAccount from './views/auth/VerifyAccount';
 import ResetPassword from './views/auth/ResetPassword';
 import Header from './views/header/Header';
 import Home from './views/home/Home';
+import { getTimeDef } from './utils/commonFunctions';
 
 function App() {
   // const dispatch = useDispatch();
@@ -19,6 +20,10 @@ function App() {
 
   // useEffect(() => {
   //   dispatch(testFetchData())
+  // }, [])
+
+    // useEffect(() => {
+    getTimeDef("2028-08-22 10:00:08")
   // }, [])
 
   // useEffect(() => {

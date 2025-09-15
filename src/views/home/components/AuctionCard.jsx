@@ -1,28 +1,29 @@
 import React from 'react'
 import { Badge, Card, CardBody, CardText } from 'reactstrap'
+import { getTimeDef } from '../../../utils/commonFunctions'
 
-function AuctionCard({category}) {
-    console.log("name",category)
+function AuctionCard({auction}) {
+    console.log("name",auction?.[6]?.auctionCategory?.name)
   return (
       <div>
           <Card className="p-2">
               <div className="position-relative">
                   <img src="/sunset.jpg" width={"100%"} alt="" />
-                  <Badge className="position-absolute top-0 end-0 bg-danger text-black p-2">
-                      {homeAuctionList?.auctionCategory?.name}
+                  <Badge className="position-absolute top-0 end-0 bg-danger text-black p-2 m-3">
+                      {auction?.auctionCategory?.name}
                   </Badge>
               </div>
               <CardBody>
                   <div className="card-text">
-                      <span>Bid Name</span>
+                      <span>{auction?.itemName}</span>
                       <div className="d-flex justify-content-between">
                           <div>
-                              <span>Rs.400</span>
+                              <span>Rs.{auction?.basePrice}</span>
                               <span className="ms-2">2 bids</span>
                           </div>
-                          <span>Created By</span>
+                          <span>{auction?.creator?.firstname+" "+auction?.creator?.lastName}</span>
                       </div>
-                      <div>Time left 2hr 2 days</div>
+                      <div>Time left: {getTimeDef(auction?.endDate)}</div>
                   </div>
               </CardBody>
           </Card>

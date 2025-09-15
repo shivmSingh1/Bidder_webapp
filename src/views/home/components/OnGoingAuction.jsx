@@ -7,9 +7,10 @@ import { getHomeAuctionList } from '../../../redux/slices/auctionSlice'
 function OnGoingAuction() {
     const dispatch = useDispatch()
     const {homeAuctionList} = useSelector((state)=>state.auction)
-     useEffect(()=>{
-        console.log("shfnsndfns",homeAuctionList)
-     },[homeAuctionList])
+    //  useEffect(()=>{
+    //     console.log("shfnsndfns",homeAuctionList)
+    //  },[homeAuctionList])
+    // console.log("home",homeAuctionList)
     useEffect(()=>{
         dispatch(getHomeAuctionList())
     },[])
@@ -22,8 +23,8 @@ function OnGoingAuction() {
                  <Row>
                {
                 homeAuctionList?.map((auction,index)=>(
-                 <Col lg={2} md={4} sm={6} xs={12} key={index}>
-                   <AuctionCard category={homeAuctionList?.categoryName?.name} />
+                 <Col lg={2} md={4} sm={6} xs={12} key={index} className='mt-3' >
+                   <AuctionCard auction={auction} />
                  </Col>
                 ))
                }
