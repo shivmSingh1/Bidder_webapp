@@ -1,14 +1,15 @@
 import React from 'react'
 import { Badge, Card, CardBody, CardText } from 'reactstrap'
 
-function AuctionCard() {
+function AuctionCard({category}) {
+    console.log("name",category)
   return (
       <div>
           <Card className="p-2">
               <div className="position-relative">
-                  <img src="" alt="" />
+                  <img src="/sunset.jpg" width={"100%"} alt="" />
                   <Badge className="position-absolute top-0 end-0 bg-danger text-black p-2">
-                      Category
+                      {homeAuctionList?.auctionCategory?.name}
                   </Badge>
               </div>
               <CardBody>
