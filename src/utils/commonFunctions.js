@@ -13,7 +13,7 @@ if(moment(endDate).isBefore()){
 }
 
 const now = moment()
-console.log(moment(endDate))
+// console.log(moment(endDate))
 const duration = moment.duration(moment(endDate).diff(now))
 const days = Math.floor(duration.asDays())   // total days
 const hours = duration.hours()               // leftover hours

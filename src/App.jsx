@@ -13,6 +13,7 @@ import ResetPassword from './views/auth/ResetPassword';
 import Header from './views/header/Header';
 import Home from './views/home/Home';
 import { getTimeDef } from './utils/commonFunctions';
+import AuctionDetails from './views/auctionDetails/AuctionDetails';
 
 function App() {
   // const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
         <Route path="/auth/forgot-password" element={<ForgotPassword />} ></Route>
         <Route path="/auth/verify-account/:token" element={<VerifyAccount />} ></Route>
         <Route path="/auth/reset-password/:token" element={<ResetPassword />} ></Route>
+        <Route path='/auction-details/:id' element={<AuctionDetails/>} ></Route>
       </Routes>
     </>
   )
