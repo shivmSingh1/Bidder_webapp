@@ -11,6 +11,7 @@ import ForgotPassword from './views/auth/ForgotPassword';
 import VerifyAccount from './views/auth/VerifyAccount';
 import ResetPassword from './views/auth/ResetPassword';
 import Header from './views/header/Header';
+import Home from './views/home/Home';
 
 function App() {
   // const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function App() {
     <>
       <Header />
       <Routes>
-        {/* <Route path='/' element={<Header/>} ></Route> */}
+        <Route path='/' element={<Home/>} ></Route>
         <Route path="/auth/signin" element={<SignIn />} ></Route>
         <Route path="/auth/signup" element={<Signup />} ></Route>
         <Route path="/auth/forgot-password" element={<ForgotPassword />} ></Route>
