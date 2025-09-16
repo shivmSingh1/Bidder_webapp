@@ -52,6 +52,13 @@ export const getAuctionDetailsById = createAsyncThunk(
     }
 )
 
+export const placeBidApi= createAsyncThunk(
+    'auction/placeBid',
+    async()=>{
+        
+    }
+)
+
 export const auctionSlice = createSlice({
     name:"auction",
     initialState:initialAuctionValues,

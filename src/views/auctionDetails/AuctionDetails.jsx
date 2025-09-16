@@ -51,9 +51,9 @@ function AuctionDetails() {
         <CustomModal isOpen={isOpen} toggle={toggle} title='place your bid' btnName={"submit"} btnSubmit={handleBtnSubmit} >
         <p>Time left 16d 19h (web,3:30pm)</p>
         <div className='d-flex text-center gap-2' >
-          <Button>Bid INR:220</Button>
-          <Button>Bid INR:220</Button>
-          <Button>Bid INR:220</Button>
+          <Button onClick={()=>setBidValue(250)} >Bid INR:250</Button>
+          <Button onClick={()=>setBidValue(500)} >Bid INR:500</Button>
+          <Button onClick={()=>setBidValue(1000)} >Bid INR:1000</Button>
         </div>
         <CustomInput lable={"Your max bid"} value={bidValue} name={"bidAmount"} onChange={handleBidInputChange} />
       </CustomModal>
