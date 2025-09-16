@@ -4,7 +4,8 @@ import { GET } from "../../services/axiosRequestHandler"
 const initialAuctionValues={
     isLoading:false,
     error:null,
-    homeAuctionList:[]
+    homeAuctionList:[],
+    AuctionDetails:[]
 }
 
 export const getHomeAuctionList = createAsyncThunk(
@@ -15,6 +16,28 @@ export const getHomeAuctionList = createAsyncThunk(
                     if (response) {
                         // console.log("response", response?.response?.data?.data?.auctions)
                         return response?.response?.data?.data?.auctions
+                    } else {
+                        return thunkApi.rejectWithValue(response.error)
+                    }
+       } catch (error) {
+         const errorMessage =
+                error?.response?.data?.error || // backend error field
+                error?.response?.data?.message || // backend message field
+                error?.message || // fallback
+                "Something went wrong";
+            return thunkApi.rejectWithValue(errorMessage);
+       }
+    }
+)
+
+export const getAuctionDetailsById = createAsyncThunk(
+    'auction/AuctionDetails',
+     async (id,thunkApi)=>{
+       try {
+        const response = await GET(`/auction/${id}`)
+                    if (response) {
+                        console.log("response", response?.response?.data?.data)
+                        return response?.response?.data?.data
                     } else {
                         return thunkApi.rejectWithValue(response.error)
                     }
@@ -42,6 +65,16 @@ export const auctionSlice = createSlice({
                 console.log("action payload",action.payload)
                 state.homeAuctionList = action.payload || []
             }).addCase(getHomeAuctionList.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload
+            })
+            .addCase(getAuctionDetailsById.pending, (state) => {
+                state.isLoading = true
+            }).addCase(getAuctionDetailsById.fulfilled, (state,action) => {
+                state.isLoading = false
+                console.log("action payload",action.payload)
+                state.AuctionDetails = action.payload || []
+            }).addCase(getAuctionDetailsById.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload
             })
