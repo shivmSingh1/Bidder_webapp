@@ -1,16 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Card, Col, Row } from 'reactstrap'
+import { Button, Card, Col, Row } from 'reactstrap'
 import { getAuctionDetailsById } from '../../redux/slices/auctionSlice'
+import CustomModal from '../common/CustomModal'
+import CustomInput from '../common/CustomInput'
 
 function AuctionDetails() {
   const {AuctionDetails} = useSelector((state)=>state.auction)
+  const [isOpen,setIsOpen] = useState(false)
+  const [bidValue,setBidValue]= useState(0)
   const dispatch = useDispatch()
   const {id}=useParams();
   useEffect(()=>{
     dispatch(getAuctionDetailsById(id))
   },[])
+
+  const toggle=()=>{
+    setIsOpen((prev)=>!prev)
+  }
+
+  const handleBidInputChange=(e)=>{
+   setBidValue(e?.target?.value)
+  }
+
+  const handleBtnSubmit=()=>{
+    
+  }
 
   useEffect(()=>{console.log("auction details",AuctionDetails)},[AuctionDetails])
   return (
@@ -29,8 +45,18 @@ function AuctionDetails() {
           <p>Last Name : <small>{AuctionDetails[0]?.creator?.lastname}</small></p>
           <p>Emal : <small>{AuctionDetails[0]?.creator?.email}</small></p>
          </Card>
+         <Button onClick={()=>setIsOpen(true)} >Place bid</Button>
         </Col>
       </Row>
+        <CustomModal isOpen={isOpen} toggle={toggle} title='place your bid' btnName={"submit"} btnSubmit={handleBtnSubmit} >
+        <p>Time left 16d 19h (web,3:30pm)</p>
+        <div className='d-flex text-center gap-2' >
+          <Button>Bid INR:220</Button>
+          <Button>Bid INR:220</Button>
+          <Button>Bid INR:220</Button>
+        </div>
+        <CustomInput lable={"Your max bid"} value={bidValue} name={"bidAmount"} onChange={handleBidInputChange} />
+      </CustomModal>
     </div>
   )
 }
