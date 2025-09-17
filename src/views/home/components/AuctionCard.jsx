@@ -4,7 +4,7 @@ import { getTimeDef } from '../../../utils/commonFunctions'
 import { useNavigate } from 'react-router-dom'
 
 function AuctionCard({auction}) {
-    console.log("name",auction)
+    // console.log("name",auction)
     const navigate = useNavigate()
     const handleCardClick = ()=>{
         navigate(`/auction-details/${auction?.id}`)

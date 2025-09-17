@@ -21,8 +21,11 @@ function SignIn() {
         console.log("print")
         try {
             const response = await dispatch(signInUser(values)).unwrap()
+            // console.log("ressssss",response)
+            // console.log("ressssss",response?.response?.data?.data)
             if (response.status === 200) {
                 localStorage.setItem("isLogin", isLogin)
+                localStorage.setItem("token",response?.response?.data?.data)
             }
             toast.success("you are logged in")
             navigate("/")

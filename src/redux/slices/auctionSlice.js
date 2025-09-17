@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { GET } from "../../services/axiosRequestHandler"
+import { GET, POST } from "../../services/axiosRequestHandler"
 
 const initialAuctionValues={
     isLoading:false,
@@ -54,8 +54,24 @@ export const getAuctionDetailsById = createAsyncThunk(
 
 export const placeBidApi= createAsyncThunk(
     'auction/placeBid',
-    async()=>{
-        
+    async(payload,thunkApi)=>{
+         try {
+            const {id,...restPayload} = payload
+        const response = await POST(`/bid/createBid/${id}`,restPayload)
+                    if (response) {
+                        console.log("response", response?.response?.data?.data)
+                        return response?.response?.data?.data
+                    } else {
+                        return thunkApi.rejectWithValue(response.error)
+                    }
+       } catch (error) {
+         const errorMessage =
+                error?.response?.data?.error || // backend error field
+                error?.response?.data?.message || // backend message field
+                error?.message || // fallback
+                "Something went wrong";
+            return thunkApi.rejectWithValue(errorMessage);
+       }
     }
 )
 
@@ -79,9 +95,19 @@ export const auctionSlice = createSlice({
                 state.isLoading = true
             }).addCase(getAuctionDetailsById.fulfilled, (state,action) => {
                 state.isLoading = false
-                console.log("action payload",action.payload)
+                // console.log("action payload",action.payload)
                 state.AuctionDetails = action.payload || []
             }).addCase(getAuctionDetailsById.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload
+            })
+             .addCase(placeBidApi.pending, (state) => {
+                state.isLoading = true
+            }).addCase(placeBidApi.fulfilled, (state,action) => {
+                state.isLoading = false
+                // console.log("action payload",action.payload)
+                // state.AuctionDetails = action.payload || []
+            }).addCase(placeBidApi.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload
             })

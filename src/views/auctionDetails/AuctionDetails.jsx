@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Button, Card, Col, Row } from 'reactstrap'
-import { getAuctionDetailsById } from '../../redux/slices/auctionSlice'
+import { getAuctionDetailsById, placeBidApi } from '../../redux/slices/auctionSlice'
 import CustomModal from '../common/CustomModal'
 import CustomInput from '../common/CustomInput'
+import { toast } from 'react-toastify'
 
 function AuctionDetails() {
   const {AuctionDetails} = useSelector((state)=>state.auction)
@@ -24,8 +25,21 @@ function AuctionDetails() {
    setBidValue(e?.target?.value)
   }
 
-  const handleBtnSubmit=()=>{
-    
+  const handleBtnSubmit=async()=>{
+    const payload={
+      id,
+      bidAmount:bidValue
+    }
+  try {
+    const response = await dispatch(placeBidApi(payload)).unwrap();
+    // agar API success ho
+    toast.success(response.message || "Your bid is placed successfully!");
+    setIsOpen(()=>false)
+  } catch (err) {
+    // agar API reject ho
+    toast.error(err.message || err || "Something went wrong!");
+    setIsOpen(()=>false)
+  }
   }
 
   useEffect(()=>{console.log("auction details",AuctionDetails)},[AuctionDetails])

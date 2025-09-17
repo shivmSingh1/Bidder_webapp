@@ -13,7 +13,7 @@ function CustomModal({isOpen,toggle,title="",children,size="md",btnName,btnSubmi
                   {children}
               </ModalBody>
               <ModalFooter>
-                <Button onClick={()=>btnSubmit} >{btnName}</Button>
+                <Button onClick={()=>btnSubmit()} >{btnName}</Button>
               </ModalFooter>
           </Modal>
     </>
