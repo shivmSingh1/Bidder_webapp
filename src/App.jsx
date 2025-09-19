@@ -14,6 +14,7 @@ import Header from './views/header/Header';
 import Home from './views/home/Home';
 import { getTimeDef } from './utils/commonFunctions';
 import AuctionDetails from './views/auctionDetails/AuctionDetails';
+import CreateAuction from './views/createAuction/CreateAuction';
 
 function App() {
   // const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
         <Route path="/auth/verify-account/:token" element={<VerifyAccount />} ></Route>
         <Route path="/auth/reset-password/:token" element={<ResetPassword />} ></Route>
         <Route path='/auction-details/:id' element={<AuctionDetails/>} ></Route>
+        <Route path='/auction/create' element={<CreateAuction/>} ></Route>
       </Routes>
     </>
   )
