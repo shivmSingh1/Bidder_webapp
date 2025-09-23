@@ -5,10 +5,12 @@ import { Button, Col, Form, Row } from 'reactstrap'
 import { auctionFormikInitialValues, auctionFormikValidationSchema } from '../../utils/formikValidations'
 import { VscLaw } from 'react-icons/vsc'
 import CustomDropdown from '../common/CustomDropdown'
+import CustomDatePicker from '../common/CustomDatePicker'
 
 function CreateAuction() {
 
   // const [selectedOption, setSelectedOption] = useState(null);
+
 
   const handleSubmit = (values) => {
     console.log("values", values)
@@ -43,6 +45,10 @@ function CreateAuction() {
               }
               name='category'
             />
+
+            <CustomDatePicker label={"Start Date"} formik={auctionFormik} name="startDate" />
+
+             <CustomDatePicker label={"End Date"} formik={auctionFormik} name="endDate" />
 
             <Button type='submit'>Submit</Button>
           </Form>

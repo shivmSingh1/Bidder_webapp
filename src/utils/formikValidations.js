@@ -69,17 +69,17 @@ export const auctionFormikValidationSchema = Yup.object().shape({
         .required("Base price is required")
         .positive("Base price must be greater than 0"),
 
-    //   startDate: Yup.date()
-    //     .required("Start date is required")
-    //     .min(new Date(), "Start date cannot be in the past"),
-
-    //   endDate: Yup.date()
-    //     .required("End date is required")
-    //     .when("startDate", (startDate, schema) =>
-    //       startDate
-    //         ? schema.min(startDate, "End date must be after start date")
-    //         : schema
-    //     ),
+      startDate: Yup.date()
+        .required("Start date is required")
+        .min(new Date(), "Start date cannot be in the past")
+,
+      endDate: Yup.date()
+        .required("End date is required")
+        .when("startDate", (startDate, schema) =>
+          startDate
+            ? schema.min(startDate, "End date must be after start date")
+            : schema
+        ),
 
     category_id: Yup.string()
         .required("Category is required"),
