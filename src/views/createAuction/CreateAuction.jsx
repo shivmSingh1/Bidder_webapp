@@ -7,6 +7,7 @@ import { VscLaw } from 'react-icons/vsc'
 import CustomDropdown from '../common/CustomDropdown'
 import CustomDatePicker from '../common/CustomDatePicker'
 import CommonTextEditor from '../common/CommonTextEditor'
+import { MdOutlineUploadFile } from "react-icons/md";
 
 function CreateAuction() {
 
@@ -15,6 +16,10 @@ function CreateAuction() {
 
   const handleSubmit = (values) => {
     console.log("values", values)
+  }
+
+  const handleFileChange=(value)=>{
+        console.log("file",value)
   }
 
   const auctionFormik = useFormik({
@@ -52,6 +57,22 @@ function CreateAuction() {
              <CustomDatePicker label={"End Date"} formik={auctionFormik} name="endDate" />
 
              <CommonTextEditor label={"Description"} name={"description"} formik={auctionFormik} />
+
+             <div>
+              <div>
+                  <div className='p-4 border' >
+                        <MdOutlineUploadFile />
+                        <input type="file" multiple accept='.png,.jpg,.jpeg' onChange={handleFileChange} />
+                  </div>
+                  <div>
+                    <small>Max size:25 mb</small>
+                    <small>JPG PNG only</small>
+                  </div>
+              </div>
+              <div>
+
+              </div>
+             </div>
 
             <Button type='submit'>Submit</Button>
           </Form>
