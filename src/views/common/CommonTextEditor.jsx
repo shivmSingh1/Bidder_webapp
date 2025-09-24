@@ -8,11 +8,11 @@ function CommonTextEditor({formik,name,label,theme="snow",readOnly=false,placeho
   
   return (
     <>
-    {
-      label && (
-        <Label htmlFor={name} className='mb-1' >{label}</Label>
-      )
-    }
+      {
+        label && (
+          <Label htmlFor={name} className='mb-1' >{label}</Label>
+        )
+      }
       <ReactQuill
         theme="snow"
         value={formik.values[name]}
@@ -21,14 +21,14 @@ function CommonTextEditor({formik,name,label,theme="snow",readOnly=false,placeho
           formik.setFieldValue(name, value);
         }}
         name={name}
-   readOnly={readOnly}
-   placeholder={placeholder}
-   />
-   {
-      error && (
-        <p className='text-danger' >{error}</p>
-      )
-    }
+        readOnly={readOnly}
+        placeholder={placeholder}
+      />
+      {
+        error && (
+          <p className='text-danger' >{error}</p>
+        )
+      }
     </>
   )
 }
