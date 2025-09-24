@@ -6,6 +6,7 @@ import { auctionFormikInitialValues, auctionFormikValidationSchema } from '../..
 import { VscLaw } from 'react-icons/vsc'
 import CustomDropdown from '../common/CustomDropdown'
 import CustomDatePicker from '../common/CustomDatePicker'
+import CommonTextEditor from '../common/CommonTextEditor'
 
 function CreateAuction() {
 
@@ -30,7 +31,7 @@ function CreateAuction() {
           <Form onSubmit={auctionFormik.handleSubmit} >
             <CustomInput name={"itemName"} lable={"Product Name"} value={auctionFormik.values.itemName} onChange={auctionFormik.handleChange} onBlur={auctionFormik.handleBlur} error={auctionFormik.touched.itemName && auctionFormik.errors.itemName} />
 
-            <CustomInput name={"description"} lable={"Description"} value={auctionFormik.values.description} onChange={auctionFormik.handleChange} onBlur={auctionFormik.handleBlur} error={auctionFormik.touched.description && auctionFormik.errors.description} />
+            {/* <CustomInput name={"description"} lable={"Description"} value={auctionFormik.values.description} onChange={auctionFormik.handleChange} onBlur={auctionFormik.handleBlur} error={auctionFormik.touched.description && auctionFormik.errors.description} /> */}
 
             <CustomInput name={"basePrice"} lable={"Base price"} value={auctionFormik.values.basePrice} onChange={auctionFormik.handleChange} onBlur={auctionFormik.handleBlur} error={auctionFormik.touched.basePrice && auctionFormik.errors.basePrice} />
 
@@ -49,6 +50,8 @@ function CreateAuction() {
             <CustomDatePicker label={"Start Date"} formik={auctionFormik} name="startDate" />
 
              <CustomDatePicker label={"End Date"} formik={auctionFormik} name="endDate" />
+
+             <CommonTextEditor label={"Description"} name={"description"} formik={auctionFormik} />
 
             <Button type='submit'>Submit</Button>
           </Form>
