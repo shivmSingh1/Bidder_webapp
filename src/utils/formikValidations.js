@@ -49,8 +49,8 @@ export const auctionFormikInitialValues = {
     itemName: "",
     description: "",
     basePrice: "",
-    startDate: "",
-    endDate: "",
+    startDate: null,
+    endDate: null,
     category_id: "",
     images: []
 }
@@ -70,10 +70,12 @@ export const auctionFormikValidationSchema = Yup.object().shape({
         .positive("Base price must be greater than 0"),
 
       startDate: Yup.date()
+        .nullable()
         .required("Start date is required")
         .min(new Date(), "Start date cannot be in the past")
 ,
       endDate: Yup.date()
+      .nullable()
         .required("End date is required")
         .when("startDate", (startDate, schema) =>
           startDate

@@ -14,10 +14,10 @@ function CommonTextEditor({formik,name,label,theme="snow",readOnly=false,placeho
         )
       }
       <ReactQuill
+      className='mb-2'
         theme="snow"
         value={formik.values[name]}
         onChange={(value) => {
-          console.log("vvvv", value);
           formik.setFieldValue(name, value);
         }}
         name={name}
