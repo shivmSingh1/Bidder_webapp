@@ -86,7 +86,7 @@ export const auctionFormikValidationSchema = Yup.object().shape({
     category_id: Yup.string()
         .required("Category is required"),
 
-    //   images: Yup.array()
-    //     .min(1, "At least 1 image is required")
-    //     .of(Yup.mixed())
+      images: Yup.array()
+        .min(1, "At least 1 image is required")
+        .of(Yup.mixed())
 });

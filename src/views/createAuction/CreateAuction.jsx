@@ -1,25 +1,47 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import CustomInput from '../common/CustomInput'
 import { useFormik } from 'formik'
 import { Button, Col, Form, Row } from 'reactstrap'
 import { auctionFormikInitialValues, auctionFormikValidationSchema } from '../../utils/formikValidations'
-import { VscLaw } from 'react-icons/vsc'
+import { CgDanger } from "react-icons/cg";
 import CustomDropdown from '../common/CustomDropdown'
 import CustomDatePicker from '../common/CustomDatePicker'
 import CommonTextEditor from '../common/CommonTextEditor'
 import { MdOutlineUploadFile } from "react-icons/md";
+import { toast } from 'react-toastify'
 
 function CreateAuction() {
 
   // const [selectedOption, setSelectedOption] = useState(null);
 
+  const fileRef = useRef()
 
   const handleSubmit = (values) => {
     console.log("values", values)
   }
 
-  const handleFileChange=(value)=>{
-        console.log("file",value)
+  const handleFileRef=()=>{
+    fileRef?.current?.click()
+  }
+
+  const handleFileChange=(e)=>{
+        const files = Array.from(e.target.files);  // FileList -> Array
+        console.log("files", files);
+
+        const validFileTypes= ["image/png","image/jpeg","image.jpg"]
+
+        files.forEach((file)=>{
+          if(!validFileTypes.includes(file?.type)){
+            return toast.error(`${file.name} is invalid type`)
+          }
+        })
+        files.forEach((file)=>{
+          if(file.size > 5*1024*1024){
+            return toast.error(`${file.name} is too large`)
+          }
+        })
+
+        auctionFormik.setFieldValue("images", files);
   }
 
   const auctionFormik = useFormik({
@@ -58,19 +80,25 @@ function CreateAuction() {
 
              <CommonTextEditor label={"Description"} name={"description"} formik={auctionFormik} />
 
-             <div>
-              <div>
-                  <div className='p-4 border' >
-                        <MdOutlineUploadFile />
-                        <input type="file" multiple accept='.png,.jpg,.jpeg' onChange={handleFileChange} />
+             <div  className='d-flex gap-3' >
+              <div >
+                  <div className='p-4 border border-primary d-inline-flex flex-column align-items-center ' onClick={handleFileRef} >
+                        <MdOutlineUploadFile size={30} />
+                        <input type="file" multiple accept='.png,.jpg,.jpeg' hidden ref={fileRef} onChange={handleFileChange} />
                   </div>
-                  <div>
+                  <div className='d-flex flex-column' >
                     <small>Max size:25 mb</small>
                     <small>JPG PNG only</small>
                   </div>
               </div>
               <div>
-
+                    <div className='p-4 border border-danger d-inline-flex flex-column align-items-center ' onClick={handleFileRef} >
+                        <CgDanger size={30} />
+                  </div>
+                  <div className='d-flex flex-column' >
+                    <small>XYZ Name</small>
+                    <small>25 mb</small>
+                  </div>
               </div>
              </div>
 
